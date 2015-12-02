@@ -65,13 +65,16 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Css\base.css" />
     <Content Include="Main\Index.html" />
     <Content Include="Main\Prompts.txt" />
+    <Content Include="Resources\TypeTimer.png" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

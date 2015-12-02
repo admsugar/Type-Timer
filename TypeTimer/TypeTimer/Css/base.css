@@ -1,0 +1,88 @@
+﻿
+/* ============================================================
+	GLOBALS
+============================================================ */
+body {
+	background-color: #2d6695;
+	color: #505050;
+	font-family: "Open Sans", sans-serif;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 1.8;
+}
+
+
+/* ============================================================
+	TEMPLATE
+============================================================ */
+
+.container {
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 30px;
+}
+
+ /* ============================================================
+	COMMON
+============================================================ */
+/* sections */
+
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+
+input[type="text"] {
+	display: block;
+	margin: 0;
+	width: 100%;
+	font-family: "Open Sans", sans-serif;
+	font-size: 18px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	-webkit-border-radius: none;
+	-moz-border-radius: none;
+	-ms-border-radius: none;
+	-o-border-radius: none;
+	border-radius: none;
+}
+input[type="text"]:focus {
+	outline: none;
+}
+
+/* lists */
+ul.input-list {
+	list-style: none;
+	margin: 0 -10px;
+	padding: 0;
+}
+ul.input-list li {
+	display: block;
+	padding: 0 10px;
+	width: 50%;
+	float: left;
+}
+
+
+/* ============================================================
+	STYLE 2
+============================================================ */
+.style-2 input[type="text"] {
+	padding: 10px;
+	border: solid 5px #c9c9c9;
+	-webkit-transition: border 0.3s;
+	-moz-transition: border 0.3s;
+	-o-transition: border 0.3s;
+	transition: border 0.3s;
+}
+.style-2 input[type="text"]:focus, .style-2 input[type="text"].focus {
+	border: solid 5px #969696;
+}
