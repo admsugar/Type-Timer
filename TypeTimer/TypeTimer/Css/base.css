@@ -71,6 +71,11 @@ ul.input-list li {
 	float: left;
 }
 
+.mainLogo {
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+}
 
 /* ============================================================
 	STYLE 2
