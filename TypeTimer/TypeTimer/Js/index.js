@@ -57,7 +57,7 @@ function UpdatePrompt(lines) {
 
     currentWord = promptStringSplit[0];
     currentWordIndex = 0;
-    promptWordCount = splitLines.length;
+    promptWordCount = promptStringSplit.length;
 
     newWord = '<span style="background-color:#ADD8E6">' + currentWord + '</span>';
     var replacedString = promptString.replace(currentWord, newWord);
@@ -83,8 +83,9 @@ function BeginTest(event) {
         currentWordIndex++;
 
         var currentTyped = entry.value;
-        entry.value = "";
-        if (currentTyped == currentWord) {
+        entry.value = null;
+
+        if (currentTyped.trim() == currentWord.trim()) {
 
             currentWord = promptStringSplit[currentWordIndex];
             wordsTypedCorrectly++;
@@ -94,6 +95,7 @@ function BeginTest(event) {
             newWord = '<span style="background-color:#ADD8E6">' + currentWord + '</span>';
             prompt.innerHTML = prompt.innerHTML.replace(currentWord, newWord);
 
+
         }
         else {
 
@@ -102,6 +104,9 @@ function BeginTest(event) {
 
             newWord = '<span style="background-color:#ADD8E6">' + currentWord + '</span>';
             prompt.innerHTML = prompt.innerHTML.replace(currentWord, newWord);
+
+
+
         }
     }
     
