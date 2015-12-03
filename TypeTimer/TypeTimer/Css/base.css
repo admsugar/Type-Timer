@@ -100,10 +100,41 @@ input[type="text"]:focus {
 	-webkit-transition: border 0.3s;
 	-moz-transition: border 0.3s;
 	-o-transition: border 0.3s;
-	transition: border 0.3s
+	transition: border 0.3s;
 
 }
 .style-2 input[type="text"]:focus, .style-2 input[type="text"].focus {
 	border: solid 5px #969696;
-    margin-top: 10px
+    margin-top: 10px;
+    width: 75%;
+    float:left;
+}
+
+.timer {
+	padding: 5px;
+	border: solid 5px #969696;
+	-webkit-transition: border 0.3s;
+	-moz-transition: border 0.3s;
+	-o-transition: border 0.3s;
+	transition: border 0.3s;
+    background-color: white; 
+
+    display: block;
+	margin: 0;
+	width: 10%;
+	font-family: "Open Sans", sans-serif;
+    color: black;
+	font-size: 18px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	-webkit-border-radius: none;
+	-moz-border-radius: none;
+	-ms-border-radius: none;
+	-o-border-radius: none;
+
+    margin-top: 10px;
+
 }

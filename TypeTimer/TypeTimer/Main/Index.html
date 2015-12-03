@@ -3,22 +3,28 @@
 <head>
 
     <link href="../Css/base.css" rel="stylesheet">
+    <script type="text/javascript" src="../Js/index.js"></script>
 
     <title>Type Timer</title>
 
 </head>
-<body>
+<body onload="onPageLoad()">
 
     <!-- The main container. -->
     <div class="container">
 
-        <img src="../Resources/TypeTimer.png" class="mainLogo"/>
+        <img src="../Resources/TypeTimer.png" class="mainLogo" />
 
-        <div class="style-1"></div>
+        <div id="prompt" class="style-1"></div>
 
         <div class="input-list style-2">
 
-            <input type="text" placeholder="Testetestestestestest" class="focus">
+            <input type="text" onkeypress="BeginTest()" placeholder=" to start the test, begin typing here." class="focus"> 
+            
+            <div id="timer">
+                <input id="minutes" value="3" type="text" style="width: 14px; border: none; background-color:none; font-size: 16px; font-weight: bold;">:<input id="seconds" value="00" type="text" style="width: 26px; border: none; background-color:none; font-size: 16px; font-weight: bold;"> remaining
+            </div>
+
 
         </div>
 
