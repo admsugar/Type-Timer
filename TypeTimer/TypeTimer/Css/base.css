@@ -78,7 +78,7 @@ input[type="text"]:focus {
 
     display: block;
 	margin: 0;
-	width: 100%;
+	width: 95%;
 	font-family: "Open Sans", sans-serif;
     color: black;
 	font-size: 18px;
@@ -91,6 +91,10 @@ input[type="text"]:focus {
 	-moz-border-radius: none;
 	-ms-border-radius: none;
 	-o-border-radius: none;
+
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
 
 }
 
@@ -101,38 +105,40 @@ input[type="text"]:focus {
 	-moz-transition: border 0.3s;
 	-o-transition: border 0.3s;
 	transition: border 0.3s;
-
 }
 .style-2 input[type="text"]:focus, .style-2 input[type="text"].focus {
 	border: solid 5px #969696;
-    width: 75%;
-    float:left;
+    width: 25%;
+    margin-top: 10px;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
 }
 
-.timer {
-	padding: 5px;
-	border: solid 5px #969696;
-	-webkit-transition: border 0.3s;
-	-moz-transition: border 0.3s;
-	-o-transition: border 0.3s;
-	transition: border 0.3s;
-    background-color: white; 
+#clockdiv{
+    font-family: sans-serif;
+    color: white;
+    display: inline-block;
+    font-weight: 100;
+    text-align: center;
+    font-size: 30px;
+}
 
-    display: block;
-	margin: 79%;
-	width: 10%;
-	font-family: "Open Sans", sans-serif;
-    color: black;
-	font-size: 18px;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	-webkit-box-shadow: none;
-	-moz-box-shadow: none;
-	box-shadow: none;
-	-webkit-border-radius: none;
-	-moz-border-radius: none;
-	-ms-border-radius: none;
-	-o-border-radius: none;
-    margin-top: 10px;
+#clockdiv > div{
+    padding: 10px;
+    border-radius: 3px;
+    background: #2d6695;
+    display: inline-block;
+}
 
+#clockdiv div > span{
+    padding: 15px;
+    border-radius: 3px;
+    background: black;
+    display: inline-block;
+}
+
+.smalltext{
+    padding-top: 5px;
+    font-size: 16px;
 }
