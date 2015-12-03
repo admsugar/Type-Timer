@@ -4,6 +4,7 @@
 
     <link href="../Css/base.css" rel="stylesheet">
     <script type="text/javascript" src="../Js/index.js"></script>
+    <script src="../Scripts/jquery-2.1.4.min.js"></script>
 
     <title>Type Timer</title>
 
@@ -19,7 +20,7 @@
 
         <div class="input-list style-2">
 
-            <input type="text" onkeypress="BeginTest()" placeholder="To start the test, begin typing here." class="focus"> 
+            <input id="entry" type="text" onkeypress="BeginTest(event)" placeholder="To start the test, begin typing here." class="focus"> 
 
         </div>
 
