@@ -39,29 +39,39 @@ function UpdatePrompt(lines) {
 }
 
 
-
+var first = false;
 /* ============================================================
     Main driver
 ============================================================ */
 function BeginTest() {
 
-    initializeClock('clockdiv');
+    if (!first) {
+        first = true;
+        initializeClock('clockdiv');
+    }
 }
 
 
 
+var timerFirst = false;
 /* ============================================================
 	Timer
 ============================================================ */
 function initializeClock(id) {
-    date = new Date().toJSON().slice(0, 10)
-    endtime = 'December 31 2015 00:00:50 UTC+0200';
+    var oneMinuteLater = new Date();
+    oneMinuteLater.setMinutes(oneMinuteLater.getMinutes() + 1);
+
     var clock = document.getElementById(id);
     var minutesSpan = clock.querySelector('.minutes');
     var secondsSpan = clock.querySelector('.seconds');
 
     function updateClock() {
-        var t = getTimeRemaining(endtime);
+        var t = getTimeRemaining(oneMinuteLater);
+
+        if (timerFirst && t.seconds == 0) {
+            timerFirst = true;
+            FinishTest();
+        }
 
         minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
         secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
@@ -69,6 +79,8 @@ function initializeClock(id) {
         if (t.total <= 0) {
             clearInterval(timeinterval);
         }
+
+        timerFirst = true;
     }
 
     updateClock();
@@ -86,4 +98,8 @@ function getTimeRemaining(endtime) {
         'minutes': minutes,
         'seconds': seconds
     };
+}
+
+function FinishTest() {
+
 }
