@@ -1,8 +1,10 @@
-﻿function onPageLoad() {
+﻿//read text file on page load
+function onPageLoad() {
     var lines = GetLines("../Resources/Prompts.txt");
     UpdatePrompt(lines);
 }
 
+//file read
 function GetLines(file) {
     var allText = "";
     var rawFile = new XMLHttpRequest();
@@ -21,6 +23,7 @@ function GetLines(file) {
     }
 }
 
+//random prompt selection
 function UpdatePrompt(lines) {
 
     var splitLines =  lines.split( '\n' );
@@ -31,35 +34,36 @@ function UpdatePrompt(lines) {
 
 }
 
+//todo:
 function BeginTest() {
 
-    alert("here");
-    //countdown();
+    countdown();
 }
 
 
+
+/* ============================================================
+	Timer
+============================================================ */
+
 // set minutes
-var mins = 3;
+var mins = 1;
 // calculate the seconds (don't change this! unless time progresses at a different speed for you...)
-var secs = mins * 60;
+var seconds = mins * 60;
 
 function countdown() {
-    setTimeout('Decrement()', 1000);
+    setTimeout(Decrement, 1000);
 }
 
 function Decrement() {
     if (document.getElementById) {
-        minutes = document.getElementById("minutes");
-        seconds = document.getElementById("seconds");
+        time = document.getElementById("timer");
         // if less than a minute remaining
         if (seconds < 59) {
-            seconds.value = secs;
-        } else {
-            minutes.value = getminutes();
-            seconds.value = getseconds();
+            time.innerText = seconds;
         }
-        secs--;
-        setTimeout('Decrement()', 1000);
+        seconds--;
+        setTimeout(Decrement, 1000);
     }
 }
 
