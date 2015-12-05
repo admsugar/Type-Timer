@@ -1,19 +1,17 @@
 ﻿/* ============================================================
     Globals
 ============================================================ */
-var promptString = "";
 var promptStringSplit = null;
-var previousWord = "";
 var currentWord = "";
 var currentWordIndex = -1;
-var promptWordCount = -1;
-var newWord = "";
+
+var prompt;
+var entry;
 
 /* ============================================================
     Stats
 ============================================================ */
 var wordsTypedCorrectly = 0;
-
 
 /* ============================================================
     File IO
@@ -21,10 +19,12 @@ var wordsTypedCorrectly = 0;
 
 //read text file on page load
 function onPageLoad() {
+
+    prompt = document.getElementById("prompt");
+    entry = document.getElementById("entry");
+
     var lines = GetLines("../Resources/Prompts.txt");
     UpdatePrompt(lines);
-
-
 }
 
 //file read
@@ -48,75 +48,72 @@ function GetLines(file) {
 
 //random prompt selection
 function UpdatePrompt(lines) {
-    var splitLines =  lines.split( '\n' );
-    var randomLineNumber = Math.floor( Math.random() * splitLines.length );
+
     var prompt = document.getElementById("prompt");
 
-    promptString = splitLines[randomLineNumber];
+    var splitLines =  lines.split( '\n' );
+    var randomLineNumber = Math.floor( Math.random() * splitLines.length );
+    var promptString = splitLines[randomLineNumber];
     promptStringSplit = promptString.split(' ');
 
     currentWord = promptStringSplit[0];
     currentWordIndex = 0;
-    promptWordCount = promptStringSplit.length;
 
-    newWord = '<span style="background-color:#ADD8E6">' + currentWord + '</span>';
-    var replacedString = promptString.replace(currentWord, newWord);
+    promptStringSplit[currentWordIndex] = '<span style="background-color: #ADD8E6">' + currentWord + '</span>';
 
-    prompt.innerHTML = replacedString; 
-
-    
+    var joinedPromptString = promptStringSplit.join(' ');
+    prompt.innerHTML = joinedPromptString;
 }
 
 
 var first = false;
+var lastWord = false;
 /* ============================================================
     Main driver
 ============================================================ */
 function BeginTest(event) {
 
-    var entry = document.getElementById("entry");
-    var prompt = document.getElementById("prompt");
-
-    if (event.which == 32) {
-
-        previousWord = newWord;
-        currentWordIndex++;
-
-        var currentTyped = entry.value;
-        entry.value = null;
-
-        if (currentTyped.trim() == currentWord.trim()) {
-
-            currentWord = promptStringSplit[currentWordIndex];
-            wordsTypedCorrectly++;
-
-            prompt.innerHTML = prompt.innerHTML.replace("#ADD8E6", "#4CBB17");
-
-            newWord = '<span style="background-color:#ADD8E6">' + currentWord + '</span>';
-            prompt.innerHTML = prompt.innerHTML.replace(currentWord, newWord);
-
-
-        }
-        else {
-
-            currentWord = promptStringSplit[currentWordIndex];
-            prompt.innerHTML = prompt.innerHTML.replace("#ADD8E6", "#FF3232");
-
-            newWord = '<span style="background-color:#ADD8E6">' + currentWord + '</span>';
-            prompt.innerHTML = prompt.innerHTML.replace(currentWord, newWord);
-
-
-
-        }
-    }
-    
     if (!first) {
         first = true;
         initializeClock('clockdiv');
     }
+
+    var prevWord;
+    var prevWordIndex; 
+    if (event.which == 32) {
+
+        CompareAndUpdate();
+        entry.value = "";
+
+        if (currentWord = promptStringSplit[promptWordCount]) {
+            alert("last");
+        }
+
+    }
+    
 }
 
+function CompareAndUpdate() {
 
+    //update current word to red or green 
+    var areEqual = currentWord.toUpperCase().trim() === entry.value.toUpperCase().trim();
+
+    if (areEqual) {
+        promptStringSplit[currentWordIndex] = promptStringSplit[currentWordIndex].replace("#ADD8E6", "#4CBB17");
+    }
+    else {
+        promptStringSplit[currentWordIndex] = promptStringSplit[currentWordIndex].replace("#ADD8E6", "#FF3232");
+    }
+
+    //nextWord update to blue
+    currentWordIndex++;
+    currentWord = promptStringSplit[currentWordIndex];
+    promptStringSplit[currentWordIndex] = '<span style="background-color:#ADD8E6">' + currentWord + '</span>';
+
+    //update dom only once per call
+    var joinedPromptString = promptStringSplit.join(' ');
+    prompt.innerHTML = joinedPromptString;
+}
 
 var timerFirst = false;
 /* ============================================================
@@ -165,6 +162,4 @@ function getTimeRemaining(endtime) {
     };
 }
 
-function FinishTest() {
-
-}
+ 
