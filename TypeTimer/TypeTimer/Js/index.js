@@ -4,6 +4,8 @@
 var promptStringSplit = null;
 var currentWord = "";
 var currentWordIndex = -1;
+var firstKeyEntry = false;
+var lastWord = false; 
 
 var prompt;
 var entry;
@@ -16,7 +18,6 @@ var wordsTypedCorrectly = 0;
 /* ============================================================
     File IO
 ============================================================ */
-
 //read text file on page load
 function onPageLoad() {
 
@@ -65,16 +66,13 @@ function UpdatePrompt(lines) {
     prompt.innerHTML = joinedPromptString;
 }
 
-
-var first = false;
-var lastWord = false;
 /* ============================================================
     Main driver
 ============================================================ */
 function BeginTest(event) {
 
-    if (!first) {
-        first = true;
+    if (!firstKeyEntry) {
+        firstKeyEntry = true;
         initializeClock('clockdiv');
     }
 
@@ -84,16 +82,18 @@ function BeginTest(event) {
 
         CompareAndUpdate();
         entry.value = "";
-
-        if (currentWord = promptStringSplit[promptWordCount]) {
-            alert("last");
-        }
-
     }
-    
+
+    if (lastWord) {
+        FinishTest();
+    }
 }
 
 function CompareAndUpdate() {
+
+    if (currentWordIndex === (promptStringSplit.length - 1)) {
+        lastWord = true;
+    }
 
     //update current word to red or green 
     var areEqual = currentWord.toUpperCase().trim() === entry.value.toUpperCase().trim();
@@ -106,10 +106,12 @@ function CompareAndUpdate() {
     }
 
     //nextWord update to blue
-    currentWordIndex++;
-    currentWord = promptStringSplit[currentWordIndex];
-    promptStringSplit[currentWordIndex] = '<span style="background-color:#ADD8E6">' + currentWord + '</span>';
-
+    if (!lastWord) {
+        currentWordIndex++;
+        currentWord = promptStringSplit[currentWordIndex];
+        promptStringSplit[currentWordIndex] = '<span style="background-color:#ADD8E6">' + currentWord + '</span>';
+    }
+    
     //update dom only once per call
     var joinedPromptString = promptStringSplit.join(' ');
     prompt.innerHTML = joinedPromptString;
@@ -162,4 +164,8 @@ function getTimeRemaining(endtime) {
     };
 }
 
- 
+function FinishTest() {
+
+    entry.readOnly = true;
+    entry.placeholder = "Results displayed below. Play again?"
+}
