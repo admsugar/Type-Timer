@@ -58,6 +58,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
+    <Content Include="Resources\RefreshButton.png" />
+    <Content Include="Resources\ToDo.txt" />
+    <Content Include="Resources\TypeTimerBlack.png" />
+    <Content Include="Resources\TypeTimerBW.png" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />

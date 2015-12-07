@@ -1,11 +1,20 @@
 ﻿/* ============================================================
     Globals
 ============================================================ */
+
+//doesn't get reset
+var lines = "";
+
 var promptStringSplit = null;
 var currentWord = "";
 var currentWordIndex = -1;
+
 var firstKeyEntry = false;
 var lastWord = false; 
+var testFinished = false;
+
+var resetClick = false;
+var refreshClick = false;
 
 var prompt;
 var entry;
@@ -19,13 +28,14 @@ var wordsTypedCorrectly = 0;
     File IO
 ============================================================ */
 //read text file on page load
-function onPageLoad() {
+function OnPageLoad() {
 
     prompt = document.getElementById("prompt");
     entry = document.getElementById("entry");
 
-    var lines = GetLines("../Resources/Prompts.txt");
-    UpdatePrompt(lines);
+    //only load this doc once TODO: make this more efficient so we dont load whole big doc
+    lines = GetLines("../Resources/Prompts.txt");    
+    UpdatePrompt();
 }
 
 //file read
@@ -46,14 +56,17 @@ function GetLines(file) {
         return allText;
     }
 }
-
+var randomLineNumber = -1;
+var splitLines = "";
 //random prompt selection
-function UpdatePrompt(lines) {
+function UpdatePrompt() {
 
     var prompt = document.getElementById("prompt");
 
-    var splitLines =  lines.split( '\n' );
-    var randomLineNumber = Math.floor( Math.random() * splitLines.length );
+    if (!refreshClick) {
+        splitLines = lines.split('\n');
+        randomLineNumber = Math.floor(Math.random() * splitLines.length);
+    }
     var promptString = splitLines[randomLineNumber];
     promptStringSplit = promptString.split(' ');
 
@@ -70,26 +83,27 @@ function UpdatePrompt(lines) {
     Main driver
 ============================================================ */
 function BeginTest(event) {
-
     if (!firstKeyEntry) {
         firstKeyEntry = true;
-        initializeClock('clockdiv');
+        InitializeClock('clockdiv');
     }
 
     var prevWord;
     var prevWordIndex; 
-    if (event.which == 32) {
-
+    if (event.which == 32 || event.which == 13) {
         CompareAndUpdate();
         entry.value = "";
     }
 
-    if (lastWord) {
+    if (testFinished || lastWord) {
         FinishTest();
     }
 }
 
 function CompareAndUpdate() {
+    if (testFinished) {
+        return;
+    }
 
     if (currentWordIndex === (promptStringSplit.length - 1)) {
         lastWord = true;
@@ -113,27 +127,34 @@ function CompareAndUpdate() {
     }
     
     //update dom only once per call
-    var joinedPromptString = promptStringSplit.join(' ');
-    prompt.innerHTML = joinedPromptString;
+    prompt.innerHTML = promptStringSplit.join(' ');
 }
 
-var timerFirst = false;
 /* ============================================================
 	Timer
 ============================================================ */
-function initializeClock(id) {
+function InitializeClock(id) {
     var oneMinuteLater = new Date();
     oneMinuteLater.setMinutes(oneMinuteLater.getMinutes() + 1);
 
     var clock = document.getElementById(id);
+
     var minutesSpan = clock.querySelector('.minutes');
     var secondsSpan = clock.querySelector('.seconds');
 
-    function updateClock() {
-        var t = getTimeRemaining(oneMinuteLater);
+    function UpdateClock() {
+        if (testFinished || resetClick) {
+            minutesSpan.innerHTML = "01";
+            secondsSpan.innerHTML = "00";
 
-        if (timerFirst && t.seconds == 0) {
-            timerFirst = true;
+            clearInterval(timeinterval);
+            return;
+        }
+
+        var t = GetTimeRemaining(oneMinuteLater);
+
+        //time up
+        if (t.minutes === 0 && t.seconds === 0) {
             FinishTest();
         }
 
@@ -143,15 +164,13 @@ function initializeClock(id) {
         if (t.total <= 0) {
             clearInterval(timeinterval);
         }
-
-        timerFirst = true;
     }
 
-    updateClock();
-    var timeinterval = setInterval(updateClock, 1000);
+    UpdateClock();
+    var timeinterval = setInterval(UpdateClock, 1000);
 }
 
-function getTimeRemaining(endtime) {
+function GetTimeRemaining(endtime) {
     var t = Date.parse(endtime) - Date.parse(new Date());
     var seconds = Math.floor((t / 1000) % 60);
     var minutes = Math.floor((t / 1000 / 60) % 60);
@@ -164,8 +183,59 @@ function getTimeRemaining(endtime) {
     };
 }
 
-function FinishTest() {
 
+/* ============================================================
+	Time Up/All words typed
+============================================================ */
+
+function FinishTest() {
+    //user finished prompt before time ended 
+    testFinished = true;
+
+    //disable key input
     entry.readOnly = true;
     entry.placeholder = "Results displayed below. Play again?"
+}
+
+
+/* ============================================================
+	Refresh Button or Next Prompt Clicked
+============================================================ */
+
+var stopTimer;
+function ButtonClicked(event) {
+
+    resetClick = true;
+
+    event.value = "";
+
+    if (event.target.className === "refresh") {
+        refreshClick = true;
+    }
+
+    UpdatePrompt();
+
+
+
+    firstKeyEntry = false;
+    resetClick = false;
+
+
+}
+
+function ResetGlobals() {
+
+    minutesSpan.innerHTML = "01";
+    secondsSpan.innerHTML = "00";
+
+    entry.placeholder = "To start the test, begin typing here."
+    promptStringSplit = null;
+    currentWord = "";
+    currentWordIndex = -1;
+
+    firstKeyEntry = false;
+    lastWord = false;
+    testFinished = false;
+
+
 }

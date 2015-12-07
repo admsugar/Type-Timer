@@ -9,12 +9,12 @@
     <title>Type Timer</title>
 
 </head>
-<body onload="onPageLoad()">
+<body onload="OnPageLoad()">
 
     <!-- The main container. -->
     <div class="container">
 
-        <img src="../Resources/TypeTimer.png" class="mainLogo" />
+        <img src="../Resources/TypeTimerBlack.png" class="mainLogo" />
 
         <div id="prompt" class="style-1"></div>
 
@@ -26,18 +26,26 @@
 
     </div>
 
-    <div style="display:flex;justify-content:center; margin-top: 15px;" id="clockdiv">
+    <div style="display: flex; justify-content: center; margin-top: 15px;" id="clockdiv">
         <div>
-            <span class="minutes">01</span>
-            <div class="smalltext">Minutes</div>
+            <span class="minutes" id="min">01</span>
+            <div class="smalltext" id="seconds">Minutes</div>
         </div>
         <div>
             <span class="seconds">00</span>
             <div class="smalltext">Seconds</div>
         </div>
+        <div>
+            <span class="refresh" onclick="ButtonClicked(event)">&#x21bb;</span>
+            <div class="smalltext">Refresh</div>
+        </div>
+        <div>
+            <span class="nextPrompt" onclick="ButtonClicked(event)">&nbsp&#x2771;&#x2771;&nbsp</span>
+            <div class="smalltext">Next Prompt</div>
+        </div>
     </div>
 
-
 </body>
+
 
 </html>

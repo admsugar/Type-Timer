@@ -3,14 +3,23 @@
 	GLOBALS
 ============================================================ */
 body {
-	background-color: #2d6695;
-	color: #505050;
 	font-family: "Open Sans", sans-serif;
 	font-weight: 400;
 	font-size: 14px;
 	line-height: 1.8;
+
+    background: #466368;
+    background: linear-gradient(#CD0027 , #E59400);
+    border-radius: 6px;
+    height: 120px;
+
 }
 
+body, html {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
 
 /* ============================================================
 	TEMPLATE
@@ -51,7 +60,6 @@ input[type="text"] {
 	-moz-border-radius: none;
 	-ms-border-radius: none;
 	-o-border-radius: none;
-	border-radius: none;
 }
 input[type="text"]:focus {
 	outline: none;
@@ -69,7 +77,7 @@ input[type="text"]:focus {
 
 .style-1 {
 	padding: 10px;
-	border: solid 5px #969696;
+	border: solid 5px #000000 ;
 	-webkit-transition: border 0.3s;
 	-moz-transition: border 0.3s;
 	-o-transition: border 0.3s;
@@ -108,7 +116,7 @@ input[type="text"]:focus {
     user-select: none;   
 }
 .style-2 input[type="text"]:focus, .style-2 input[type="text"].focus {
-	border: solid 5px #969696;
+	border: solid 5px #000000 ;
     width: 25%;
     margin-top: 10px;
     display:block;
@@ -116,6 +124,9 @@ input[type="text"]:focus {
     margin-right:auto;
 }
 
+/* ============================================================
+	TIMER & REFRESH BUTTON
+============================================================ */
 #clockdiv{
     font-family: sans-serif;
     color: white;
@@ -128,7 +139,7 @@ input[type="text"]:focus {
 #clockdiv > div{
     padding: 10px;
     border-radius: 3px;
-    background: #2d6695;
+    background: #CD0027;
     display: inline-block;
 }
 
