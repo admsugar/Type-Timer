@@ -197,6 +197,7 @@ function GetTimeRemaining(endtime) {
 function FinishTest() {
  
     $("#clockdiv").animate({
+        "margin-left": "0%", 
         "margin-right": "35%",
     }, 1000);
 
@@ -204,9 +205,10 @@ function FinishTest() {
     var scoreString = "";
     var wordsPerMinute = (wordsTypedCorrectly / 60); 
     var wordAccuracy = (wordsTypedCorrectly / (promptStringSplit.length - 1));
-    scoreString += "<h1>Words Correct: </h1> " + wordsTypedCorrectly + "<br>" + "<h1>Words Per Minute: </h1> " + wordsPerMinute + "<br>" + "<h1>Word Accuracy: </h1> " + wordAccuracy; 
+    scoreString += "<h6>Words Correct: </h6> " + wordsTypedCorrectly + "<br>" + "<h6>Words Per Minute: </h6> " + wordsPerMinute + "<br>" + "<h6>Word Accuracy: </h6> " + wordAccuracy; 
 
-
+    var s = document.getElementById("score");
+    s.innerHTML = scoreString; 
     $("#score").show(1000);
 
     //user finished prompt before time ended 
