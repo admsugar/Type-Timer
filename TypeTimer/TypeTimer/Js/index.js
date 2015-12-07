@@ -67,7 +67,7 @@ function UpdatePrompt() {
         splitLines = lines.split('\n');
         randomLineNumber = Math.floor(Math.random() * splitLines.length);
     }
-    var promptString = splitLines[randomLineNumber];
+    var promptString = splitLines[randomLineNumber].trim();
     promptStringSplit = promptString.split(' ');
 
     currentWord = promptStringSplit[0];
@@ -84,6 +84,8 @@ function UpdatePrompt() {
 ============================================================ */
 function BeginTest(event) {
     if (!firstKeyEntry) {
+
+        resetClick = false;
         firstKeyEntry = true;
         InitializeClock('clockdiv');
     }
@@ -92,7 +94,10 @@ function BeginTest(event) {
     var prevWordIndex; 
     if (event.which == 32 || event.which == 13) {
         CompareAndUpdate();
-        entry.value = "";
+        entry.placeholder = "Type away...";
+        entry.value = null;
+        event.stopPropagation();
+        event.preventDefault();
     }
 
     if (testFinished || lastWord) {
@@ -113,6 +118,7 @@ function CompareAndUpdate() {
     var areEqual = currentWord.toUpperCase().trim() === entry.value.toUpperCase().trim();
 
     if (areEqual) {
+        wordsTypedCorrectly++;
         promptStringSplit[currentWordIndex] = promptStringSplit[currentWordIndex].replace("#ADD8E6", "#4CBB17");
     }
     else {
@@ -189,12 +195,28 @@ function GetTimeRemaining(endtime) {
 ============================================================ */
 
 function FinishTest() {
+ 
+    $("#clockdiv").animate({
+        "margin-right": "35%",
+    }, 1000);
+
+    //update score
+    var scoreString = "";
+    var wordsPerMinute = (wordsTypedCorrectly / 60); 
+    var wordAccuracy = (wordsTypedCorrectly / (promptStringSplit.length - 1));
+    scoreString += "<h1>Words Correct: </h1> " + wordsTypedCorrectly + "<br>" + "<h1>Words Per Minute: </h1> " + wordsPerMinute + "<br>" + "<h1>Word Accuracy: </h1> " + wordAccuracy; 
+
+
+    $("#score").show(1000);
+
     //user finished prompt before time ended 
     testFinished = true;
 
     //disable key input
     entry.readOnly = true;
-    entry.placeholder = "Results displayed below. Play again?"
+    entry.placeholder = "Results displayed below. Play again?";
+    entry.stopPropagation();
+    entry.preventDefault();
 }
 
 
@@ -204,6 +226,12 @@ function FinishTest() {
 
 var stopTimer;
 function ButtonClicked(event) {
+
+    //clear the scoreboard info
+    $("#score").hide(1000);
+    $("#clockdiv").animate({
+        "margin-left": "35%",
+    }, 1000);
 
     resetClick = true;
 
@@ -215,27 +243,12 @@ function ButtonClicked(event) {
 
     UpdatePrompt();
 
-
-
+    entry.readOnly = false;
+    entry.placeholder = "To start the test, begin typing here.";
     firstKeyEntry = false;
-    resetClick = false;
 
-
-}
-
-function ResetGlobals() {
-
-    minutesSpan.innerHTML = "01";
-    secondsSpan.innerHTML = "00";
-
-    entry.placeholder = "To start the test, begin typing here."
-    promptStringSplit = null;
-    currentWord = "";
-    currentWordIndex = -1;
-
-    firstKeyEntry = false;
     lastWord = false;
     testFinished = false;
 
-
 }
+
