@@ -206,7 +206,7 @@ function FinishTest() {
     var wordsPerMinute = (wordsTypedCorrectly / 60); 
     var wordAccuracy = (wordsTypedCorrectly / (promptStringSplit.length - 1));
 
-    scoreString += "<h6>Words Correct: </h6> " + wordsTypedCorrectly + "<br>" + "<h6>Words Per Minute: </h6> " + wordsPerMinute + "<br>" + "<h6>Word Accuracy: </h6> " + wordAccuracy; 
+    scoreString += "<h1>Words Correct: </h1> " + wordsTypedCorrectly + " out of " + (promptStringSplit.length-1) + " words." +  "<br>" + "<h1>Words Per Minute: </h1> " + wordsPerMinute + "<br>" + "<h1>Word Accuracy: </h1> " + wordAccuracy; 
 
     var s = document.getElementById("score");
     s.innerHTML = scoreString; 
