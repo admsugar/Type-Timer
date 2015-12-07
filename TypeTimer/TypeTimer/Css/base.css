@@ -136,6 +136,7 @@ input[type="text"]:focus {
     text-align: center;
     font-size: 30px;
     margin-right:0px;
+    margin-left:0px;
 }
 
 #clockdiv > div{

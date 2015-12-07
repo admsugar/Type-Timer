@@ -205,6 +205,7 @@ function FinishTest() {
     var scoreString = "";
     var wordsPerMinute = (wordsTypedCorrectly / 60); 
     var wordAccuracy = (wordsTypedCorrectly / (promptStringSplit.length - 1));
+
     scoreString += "<h6>Words Correct: </h6> " + wordsTypedCorrectly + "<br>" + "<h6>Words Per Minute: </h6> " + wordsPerMinute + "<br>" + "<h6>Word Accuracy: </h6> " + wordAccuracy; 
 
     var s = document.getElementById("score");
@@ -229,11 +230,13 @@ function FinishTest() {
 var stopTimer;
 function ButtonClicked(event) {
 
-    //clear the scoreboard info
-    $("#score").hide(1000);
-    $("#clockdiv").animate({
-        "margin-left": "35%",
-    }, 1000);
+    if (testFinished) {
+        //clear the scoreboard info
+        $("#score").hide(1000);
+        $("#clockdiv").animate({
+            "margin-left": "35%",
+        }, 1000);
+    }
 
     resetClick = true;
 
